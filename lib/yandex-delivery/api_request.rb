@@ -5,11 +5,12 @@ module YandexDelivery
       @request_builder = builder
     end
 
-    def post(params: nil, headers: nil, body: nil)
+    def post(params: nil, headers: nil, body: {})
       validate_api_key
 
       begin
         response = self.rest_client.post do |request|
+          body[:senderId] = YandexDelivery.senders.first["id"] if body[:senderId].nil?
           configure_request(request: request, params: params, headers: headers, body: MultiJson.dump(body))
         end
         parse_response(response)
@@ -18,11 +19,12 @@ module YandexDelivery
       end
     end
 
-    def patch(params: nil, headers: nil, body: nil)
+    def patch(params: nil, headers: nil, body: {})
       validate_api_key
 
       begin
         response = self.rest_client.patch do |request|
+          body[:senderId] = YandexDelivery.senders.first["id"] if body[:senderId].nil?
           configure_request(request: request, params: params, headers: headers, body: MultiJson.dump(body))
         end
         parse_response(response)
@@ -31,11 +33,12 @@ module YandexDelivery
       end
     end
 
-    def put(params: nil, headers: nil, body: nil)
+    def put(params: nil, headers: nil, body: {})
       validate_api_key
 
       begin
         response = self.rest_client.put do |request|
+          body[:senderId] = YandexDelivery.senders.first["id"] if body[:senderId].nil?
           configure_request(request: request, params: params, headers: headers, body: MultiJson.dump(body))
         end
         parse_response(response)
@@ -142,6 +145,7 @@ module YandexDelivery
         request.body = body if body
         request.options.timeout = self.timeout
         request.options.open_timeout = self.open_timeout
+        p request
       end
     end
 

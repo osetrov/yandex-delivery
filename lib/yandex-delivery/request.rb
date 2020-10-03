@@ -43,19 +43,19 @@ module YandexDelivery
       @path_parts.join('/')
     end
 
-    def create(params: nil, headers: nil, body: nil)
+    def create(params: nil, headers: nil, body: {})
       APIRequest.new(builder: self).post(params: params, headers: headers, body: body)
     ensure
       reset
     end
 
-    def update(params: nil, headers: nil, body: nil)
+    def update(params: nil, headers: nil, body: {})
       APIRequest.new(builder: self).patch(params: params, headers: headers, body: body)
     ensure
       reset
     end
 
-    def upsert(params: nil, headers: nil, body: nil)
+    def upsert(params: nil, headers: nil, body: {})
       APIRequest.new(builder: self).put(params: params, headers: headers, body: body)
     ensure
       reset

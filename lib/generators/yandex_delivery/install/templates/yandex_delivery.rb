@@ -15,9 +15,9 @@ YandexDelivery.setup do |config|
     #   config::create_method k.underscore.to_sym
     #   config::register "#{k.underscore}_key".to_sym, v
     # end
-    #
-    # processed['YANDEX_DELIVERY'].each do |k, v|
-    #   config::register k.underscore.to_sym, v
-    # end
+
+    processed['YANDEX_DELIVERY'].each do |k, v|
+      config::register k.underscore.to_sym, v
+    end
   end
 end
