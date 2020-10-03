@@ -1,0 +1,19 @@
+YANDEX_DELIVERY_ACCESS_TOKEN: ''
+
+YANDEX_DELIVERY: {
+    "client": {
+      "id": 0
+    },
+    "warehouses": [
+    {
+      "id": 0,
+      "name": "Склад"
+    }
+    ],
+    "senders": [
+    {
+      "id": 0,
+      "name": "Магазин"
+    }
+    ]
+}
