@@ -70,7 +70,9 @@ YandexDelivery::Request.logger = MyLogger.new
 
 ## Примеры
 
-### Поиск вариантов доставки
+### Варианты доставки
+
+#### Поиск вариантов доставки
 
 ```ruby
 # для Rails senderId указывать не обязательно, в запрос подставится значение из config/yandex_delivery2.yml
@@ -80,4 +82,173 @@ body = {
 }
 
 YandexDelivery::Request.delivery_options.upsert(body: body)
+```
+
+#### Поиск пунктов выдачи заказов
+
+```ruby
+YandexDelivery::Request.pickup_points.upsert(body: {locationId: 2})
+```
+
+### Операции с заказами
+
+#### Создать черновик заказа
+
+```ruby
+response = YandexDelivery::Request.orders.create(body: {deliveryType: 'COURIER'})
+order_id = response.body
+```
+
+#### Обновить черновик заказа
+
+```ruby
+YandexDelivery::Request.orders(order_id).upsert(body: {deliveryType: 'PICKUP'})
+```
+
+#### Оформить заказ
+
+```ruby
+YandexDelivery::Request.orders.submit.create(body: {orderIds: [order_id]})
+```
+
+#### Получить данные о заказе
+
+```ruby
+response = YandexDelivery::Request.orders(order_id).retrieve
+order = response.body
+```
+
+#### Удалить заказ
+
+```ruby
+YandexDelivery::Request.orders(order_id).delete
+```
+
+#### Получить ярлык заказа
+
+```ruby
+YandexDelivery::Request.orders(order_id).label.retrieve
+```
+
+#### Поиск заказов
+
+```ruby
+sender_ids = YandexDelivery.senders.map{|sender| sender['id']}
+YandexDelivery::Request.orders.search.upsert(body: {senderIds: sender_ids, orderIds: [order_id]})
+```
+
+#### Получить историю статусов заказа
+
+```ruby
+YandexDelivery::Request.orders(order_id).statuses.retrieve
+```
+
+#### Получить статус заказов
+
+```ruby
+YandexDelivery::Request.orders.status.upsert
+```
+
+### Операции с отгрузками
+
+#### Создать заявку на отгрузку
+
+```ruby
+body = {
+  cabinetId: YandexDelivery.client['id'],
+  shipment: {
+                type: "WITHDRAW",
+                date: "2020-10-05",
+                warehouseFrom: YandexDelivery.warehouses.first['id'],
+                warehouseTo: 123,
+                partnerTo: 678
+              },
+  intervalId: 765478,
+  dimensions: {
+                length: 10,
+                width: 15,
+                height: 40,
+                weight: 5.5
+               },
+  courier: {
+                type: "CAR",
+                firstName: "Василий",
+                middleName: "Иванович",
+                lastName: "Пупкин",
+                phone: "+79998887766",
+                carNumber: "о000оо",
+                carBrand: "Maybach"
+            },
+  comment: "comment"
+}
+response = YandexDelivery::Request.shipments.application.create(body body)
+shipment_id = response.body['id']
+```
+
+#### Подтвердить отгрузку
+
+```ruby
+body = {
+  cabinetId: YandexDelivery.client['id'],
+  shipmentApplicationIds: [shipment_id]
+}
+YandexDelivery::Request.shipments.application.submit.create(body body)
+```
+
+#### Получить список отгрузок
+
+```ruby
+body = {
+          cabinetId: YandexDelivery.client['id'],
+          shipmentType: "IMPORT",
+          dateFrom: "2020-10-05",
+          "dateTo": "2020-11-05",
+          "partnerIds": 
+          [
+            239847,
+            98234,
+            54968
+          ]
+       }
+YandexDelivery::Request.shipments.search.upsert(body: body)
+```
+
+#### Получить интервалы самопривозов
+
+```ruby
+warehouse_id = YandexDelivery.warehouses.first['id']
+YandexDelivery::Request.shipments.intervals.import.retrieve(params: {warehouseId: warehouse_id, date: '2020-10-06'})
+```
+
+#### Получить интервалы заборов
+
+```ruby
+YandexDelivery::Request.shipments.intervals.withdraw.retrieve(params: {partnerId: 106, date: '2020-10-06'})
+```
+
+#### Получить акт передачи заказов
+
+```ruby
+YandexDelivery::Request.shipments.applications(shipment_id).act.retrieve(params: {cabinetId: YandexDelivery.client['id']})
+```
+
+### Справочные данные
+
+#### Получить полный адрес
+
+```ruby
+YandexDelivery::Request.location.retrieve(params: {term: 'Санкт-Петербург'})
+```
+
+#### Получить индекс по адресу
+
+```ruby
+response = YandexDelivery::Request.location.postal_code.retrieve(params: {address: 'Санкт-Петербург, ул. Профессора Попова, д. 37Щ, БЦ "Сенатор"'})
+postal_code = response.body.first[:postalCode]
+```
+
+#### Получить список служб доставки
+
+```ruby
+YandexDelivery::Request.delivery_services.retrieve(params: {cabinetId: YandexDelivery.client['id']})
 ```

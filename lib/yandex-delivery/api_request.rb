@@ -145,7 +145,6 @@ module YandexDelivery
         request.body = body if body
         request.options.timeout = self.timeout
         request.options.open_timeout = self.open_timeout
-        p request
       end
     end
 
