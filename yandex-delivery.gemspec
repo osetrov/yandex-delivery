@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
   s.name        = 'yandex-delivery'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2020-08-11'
   s.summary     = "Yandex delivery"
   s.description = ""
   s.authors     = ["Pavel Osetrov"]
   s.email       = 'pavel.osetrov@me.com'
-  s.files = Dir['lib/**/*', 'LICENSE', 'README.md']
+  s.files = Dir['lib/**/*', 'LICENSE', 'README.markdown']
 
   s.homepage    = 'https://github.com/osetrov/yandex-delivery'
   s.license       = 'MIT'
