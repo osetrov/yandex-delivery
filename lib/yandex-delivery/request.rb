@@ -7,7 +7,7 @@ module YandexDelivery
 
     def initialize(api_key: nil, api_endpoint: nil, timeout: nil, open_timeout: nil, proxy: nil, faraday_adapter: nil, symbolize_keys: false, debug: false, logger: nil)
       @path_parts = []
-      @api_key = api_key || self.class.api_key || ENV['YANDEX_DELIVERY_API_KEY']
+      @api_key = api_key || self.class.api_key || ENV['YANDEX_DELIVERY_ACCESS_TOKEN']
       @api_key = @api_key.strip if @api_key
       @api_endpoint = api_endpoint || self.class.api_endpoint
       @timeout = timeout || self.class.timeout || DEFAULT_TIMEOUT

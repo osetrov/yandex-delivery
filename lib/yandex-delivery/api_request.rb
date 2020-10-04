@@ -140,7 +140,7 @@ module YandexDelivery
       if request
         request.params.merge!(params) if params
         request.headers['Content-Type'] = 'application/json'
-        request.headers['Authorization: OAuth'] = self.api_key
+        request.headers['Authorization'] = "OAuth #{self.api_key}"
         request.headers.merge!(headers) if headers
         request.body = body if body
         request.options.timeout = self.timeout

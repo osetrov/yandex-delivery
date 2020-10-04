@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'yandex-delivery'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.date        = '2020-08-11'
   s.summary     = "Yandex delivery"
   s.description = ""
