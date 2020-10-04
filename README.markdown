@@ -181,7 +181,7 @@ body = {
             },
   comment: "comment"
 }
-response = YandexDelivery::Request.shipments.application.create(body body)
+response = YandexDelivery::Request.shipments.application.create(body: body)
 shipment_id = response.body['id']
 ```
 
@@ -192,7 +192,7 @@ body = {
   cabinetId: YandexDelivery.client['id'],
   shipmentApplicationIds: [shipment_id]
 }
-YandexDelivery::Request.shipments.application.submit.create(body body)
+YandexDelivery::Request.shipments.application.submit.create(body: body)
 ```
 
 #### Получить список отгрузок
