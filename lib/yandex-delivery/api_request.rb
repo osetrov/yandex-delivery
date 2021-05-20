@@ -178,8 +178,7 @@ module YandexDelivery
     end
 
     def validate_api_key
-      api_key = self.api_key
-      unless api_key && (api_key["-"] || self.api_endpoint)
+      unless self.api_key
         raise YandexDelivery::YandexDeliveryError, "You must set an api_key prior to making a call"
       end
     end
