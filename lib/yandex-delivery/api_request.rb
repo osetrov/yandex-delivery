@@ -144,7 +144,7 @@ module YandexDelivery
       if request
         request.params.merge!(params) if params
         request.headers['Content-Type'] = 'application/json'
-        request.headers['Authorization'] = "OAuth oauth_token=\"#{self.api_key}\", oauth_client_id=\"#{self.app_id}\""
+        request.headers['Authorization'] = "OAuth #{self.api_key}"
         request.headers.merge!(headers) if headers
         request.body = body if body
         request.options.timeout = self.timeout
@@ -184,9 +184,6 @@ module YandexDelivery
     def validate_api_key
       unless self.api_key
         raise YandexDelivery::YandexDeliveryError, "You must set an api_key prior to making a call"
-      end
-      unless self.app_id
-        raise YandexDelivery::YandexDeliveryError, "You must set an app_id prior to making a call"
       end
     end
 
