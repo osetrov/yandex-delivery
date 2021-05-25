@@ -5,6 +5,7 @@ YandexDelivery.setup do |config|
     template = ERB.new(File.new('config/yandex_delivery2.yml').read)
     processed = YAML.safe_load(template.result(binding))
 
+    config::Request.app_id = processed['YANDEX_DELIVERY_APP_ID']
     config::Request.api_key = processed['YANDEX_DELIVERY_ACCESS_TOKEN']
     config::Request.timeout = 15
     config::Request.open_timeout = 15
