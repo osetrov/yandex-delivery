@@ -1,4 +1,4 @@
-require 'yandex_delivery'
+require 'yandex-delivery'
 
 YandexDelivery.setup do |config|
   if File.exist?('config/yandex_delivery2.yml')

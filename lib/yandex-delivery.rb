@@ -1,8 +1,10 @@
+require 'faraday'
 require 'yandex-delivery/yandex_delivery_error'
 require 'yandex-delivery/yandex_error'
 require 'yandex-delivery/request'
 require 'yandex-delivery/api_request'
 require 'yandex-delivery/response'
+require 'ozon-logistics/version'
 
 module YandexDelivery
   class << self
