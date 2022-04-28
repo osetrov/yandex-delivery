@@ -4,7 +4,7 @@ require 'yandex-delivery/yandex_error'
 require 'yandex-delivery/request'
 require 'yandex-delivery/api_request'
 require 'yandex-delivery/response'
-require 'ozon-logistics/version'
+require 'yandex-delivery/version'
 
 module YandexDelivery
   class << self
