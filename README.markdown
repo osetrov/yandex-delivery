@@ -1,5 +1,7 @@
 # Yandex-delivery
 
+Этот wrapper для старой доставки. [API wrapper для новой Яндекс.доставки](https://github.com/osetrov/yandex-dostavka)
+
 API wrapper для Яндекс.доставки [API](https://yandex.ru/dev/delivery-3/doc/dg/).
 
 ## Установка Ruby
